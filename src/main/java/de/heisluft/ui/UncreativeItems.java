@@ -1,37 +1,34 @@
 package de.heisluft.ui;
 
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.heisluft.ui.cmd.CmdGiveURLSkull;
+import de.heisluft.ui.cmd.CmdItems;
+import de.heisluft.ui.cmd.CmdSetURLSkull;
+
 @SuppressWarnings("unused")
-public class UncreativeItems extends JavaPlugin implements Listener {
+public class UncreativeItems extends JavaPlugin {
 	
-	private final Inventory extraItems = Bukkit.getServer().createInventory(null, 27,
-			"\u00a7l\u00a76ExtraItems\u00a7r");
+	public static UncreativeItems instance;
+	public final Inventory extraItems = Bukkit.getServer().createInventory(null, 27, "\u00a71UncreativeItems\u00a7r");
+	public final ItemStack spawnerFactory = new ItemStack(Material.MOB_SPAWNER);
 	
-	private static String fromList(List<String> list) {
-		StringBuilder result = new StringBuilder();
-		int s = list.size();
-		for (int i = 0; i < s; i++) {
-			result.append(list.get(i)).append(s - i == 1 ? "" : s - i == 2 ? " and " : ", ");
-		}
-		return result.toString();
+	@Override
+	public void onLoad() {
+		instance = this;
+		new RDP().onEnable();
 	}
 	
 	@Override
@@ -39,14 +36,24 @@ public class UncreativeItems extends JavaPlugin implements Listener {
 		extraItems.setItem(3, new ItemStack(Material.COMMAND));
 		extraItems.setItem(4, new ItemStack(Material.COMMAND_CHAIN));
 		extraItems.setItem(5, new ItemStack(Material.COMMAND_REPEATING));
-		extraItems.setItem(11, new ItemStack(Material.MOB_SPAWNER));
+		ItemMeta im = spawnerFactory.getItemMeta();
+		im.setDisplayName("\u00A7cSpawner Config\u00A7r");
+		List<String> lore = new ArrayList<>();
+		lore.add("\u00A77Click here to get to the SpawnerCustomisationFactory\u00A7r");
+		im.setLore(lore);
+		im.addItemFlags(ItemFlag.HIDE_DESTROYS);
+		spawnerFactory.setItemMeta(im);
+		extraItems.setItem(11, spawnerFactory);
 		extraItems.setItem(13, new ItemStack(Material.COMMAND_MINECART));
 		extraItems.setItem(15, new ItemStack(Material.BARRIER));
 		extraItems.setItem(22, new ItemStack(Material.DRAGON_EGG));
-		Bukkit.getPluginManager().registerEvents(this, this);
+		Bukkit.getPluginManager().registerEvents(new Listener(), this);
+		Bukkit.getPluginCommand("seturlskull").setExecutor(new CmdSetURLSkull());
+		Bukkit.getPluginCommand("giveurlskull").setExecutor(new CmdGiveURLSkull());
+		Bukkit.getPluginCommand("items").setExecutor(new CmdItems());
 		PluginDescriptionFile d = getDescription();
-		getLogger().info(
-				"Enabled " + d.getName() + " v" + d.getVersion() + " by " + fromList(d.getAuthors()) + " successfully");
+		getLogger().info("Enabled " + d.getName() + " v" + d.getVersion() + " by " + Utils.fromList(d.getAuthors())
+				+ " successfully");
 	}
 	
 	@Override
@@ -58,32 +65,8 @@ public class UncreativeItems extends JavaPlugin implements Listener {
 			// ignore
 		}
 		PluginDescriptionFile d = getDescription();
-		getLogger().info("Disabled " + d.getName() + " v" + d.getVersion() + " by " + fromList(d.getAuthors())
+		getLogger().info("Disabled " + d.getName() + " v" + d.getVersion() + " by " + Utils.fromList(d.getAuthors())
 				+ " successfully");
-	}
-	
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("items"))
-			if (sender instanceof Player) ((Player) sender).openInventory(extraItems);
-		return true;
-	}
-	
-	@EventHandler
-	public void onInvEvent(InventoryClickEvent event) {
-		Inventory i = event.getClickedInventory();
-		if (i != null && i.equals(extraItems)) {
-			event.setResult(Event.Result.DENY);
-			event.setCancelled(true);
-			if (i.getItem(event.getSlot()) != null) {
-				event.getWhoClicked().getInventory().addItem(i.getItem(event.getSlot()));
-			}
-		}
-	}
-	
-	@EventHandler
-	public void onInv2(InventoryDragEvent event) {
-		Inventory i = event.getInventory();
-		if (i != null && i.equals(extraItems)) event.setCancelled(true);
 	}
 	
 }

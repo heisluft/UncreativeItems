@@ -6,3 +6,9 @@ commands:
   items:
     description: open the items gui
     usage: /extraitems
+  seturlskull:
+    description: sets an url skull
+    usage: /seturlskull <x> <y> <z> <url> [world]
+  giveurlskull:
+    description: gives an url skull
+    usage: /seturlskull <url> [amount]
