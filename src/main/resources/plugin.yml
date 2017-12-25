@@ -1,8 +1,7 @@
 name: ${name}
-author: ${author}
+authors: ${authors}
 version: ${version}
-prefix: ExtraItems
-main: de.heisluft.extraitems.ExtraItems
+main: ${main}
 commands:
   extraitems:
     description: open the extraitems gui

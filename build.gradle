@@ -5,9 +5,10 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
-rootProject.name
 
-String author = 'heisluft'
+String authors = '[heisluft]'
+String pluginName = 'ExtraItems'
+String main = 'de.heisluft.extraitems.ExtraItems'
 
 repositories {
     mavenCentral()
@@ -40,7 +41,7 @@ processResources {
     }
     from(sourceSets.main.resources.srcDirs) {
         include 'plugin.yml'
-        expand('version': version, 'author': author, 'name': project.name)
+        expand('version': version, 'authors': authors, 'name': pluginName, 'main': main)
     }
 }
 
