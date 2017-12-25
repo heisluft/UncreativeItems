@@ -1,0 +1,8 @@
+name: ExtraItems
+author: heisluft
+version: 0.0.1
+main: de.heisluft.extraitems.ExtraItems
+commands:
+  extraitems:
+    description: open the extraitems gui
+    usage: /extraitems

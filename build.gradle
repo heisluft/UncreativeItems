@@ -1,0 +1,41 @@
+group 'de.heisluft'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+version = '0.0.1'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task copyToTestServer(type: Copy, dependsOn: jar) {
+    String folderName = 'C:/Users/Heisluft/Desktop/MC/plugin/testserver/plugins/'
+    from "build/libs/extraitems-" + version + ".jar"
+    into folderName
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives javadocJar
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    compile 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
