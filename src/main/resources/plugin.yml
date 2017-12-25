@@ -3,6 +3,6 @@ authors: ${authors}
 version: ${version}
 main: ${main}
 commands:
-  extraitems:
-    description: open the extraitems gui
+  items:
+    description: open the items gui
     usage: /extraitems
