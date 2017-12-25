@@ -1,6 +1,7 @@
-name: ExtraItems
-author: heisluft
-version: 0.0.1
+name: ${name}
+author: ${author}
+version: ${version}
+prefix: ExtraItems
 main: de.heisluft.extraitems.ExtraItems
 commands:
   extraitems:

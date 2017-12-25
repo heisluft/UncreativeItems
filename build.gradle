@@ -1,15 +1,22 @@
 group 'de.heisluft'
-version '1.0-SNAPSHOT'
+version '0.0.1'
 
 apply plugin: 'groovy'
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
-version = '0.0.1'
+rootProject.name
+
+String author = 'heisluft'
 
 repositories {
     mavenCentral()
     mavenLocal()
+}
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    compile 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -23,9 +30,18 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 task copyToTestServer(type: Copy, dependsOn: jar) {
-    String folderName = 'C:/Users/Heisluft/Desktop/MC/plugin/testserver/plugins/'
     from "build/libs/extraitems-" + version + ".jar"
-    into folderName
+    into 'C:/Users/Heisluft/Desktop/MC/plugin/testserver/plugins'
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'plugin.yml'
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        include 'plugin.yml'
+        expand('version': version, 'author': author, 'name': project.name)
+    }
 }
 
 artifacts {
@@ -34,8 +50,3 @@ artifacts {
     archives javadocJar
 }
 
-dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    compile 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
