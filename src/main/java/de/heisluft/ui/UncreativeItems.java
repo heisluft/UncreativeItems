@@ -17,6 +17,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import de.heisluft.ui.cmd.CmdGiveURLSkull;
 import de.heisluft.ui.cmd.CmdItems;
 import de.heisluft.ui.cmd.CmdSetURLSkull;
+import de.heisluft.ui.event.InventoryListener;
+import de.heisluft.ui.util.Utils;
 
 @SuppressWarnings("unused")
 public class UncreativeItems extends JavaPlugin {
@@ -28,7 +30,6 @@ public class UncreativeItems extends JavaPlugin {
 	@Override
 	public void onLoad() {
 		instance = this;
-		new RDP().onEnable();
 	}
 	
 	@Override
@@ -47,7 +48,7 @@ public class UncreativeItems extends JavaPlugin {
 		extraItems.setItem(13, new ItemStack(Material.COMMAND_MINECART));
 		extraItems.setItem(15, new ItemStack(Material.BARRIER));
 		extraItems.setItem(22, new ItemStack(Material.DRAGON_EGG));
-		Bukkit.getPluginManager().registerEvents(new Listener(), this);
+		Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
 		Bukkit.getPluginCommand("seturlskull").setExecutor(new CmdSetURLSkull());
 		Bukkit.getPluginCommand("giveurlskull").setExecutor(new CmdGiveURLSkull());
 		Bukkit.getPluginCommand("items").setExecutor(new CmdItems());

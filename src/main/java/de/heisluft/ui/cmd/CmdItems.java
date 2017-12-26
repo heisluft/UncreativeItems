@@ -8,6 +8,9 @@ import org.bukkit.entity.Player;
 
 import de.heisluft.ui.UncreativeItems;
 
+/**
+ * Deals with the /items command
+ */
 public class CmdItems implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
