@@ -73,7 +73,7 @@ public final class Utils {
 		m.setDisplayName("Back");
 		skullBack.setItemMeta(m);
 		result.setItem(18, skullBack);
-		InventoryListener.addCallBack(result,
+		InventoryListener.addCallback(result,
 				(whoClicked, inventory, slot) -> new SimplePair<>(Event.Result.DEFAULT, true));
 		return result;
 	}

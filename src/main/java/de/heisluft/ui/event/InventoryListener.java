@@ -19,7 +19,7 @@ public class InventoryListener implements Listener {
 	private static final Map<Inventory, InventoryCallbackFunction> FUNCTIONS = new HashMap<>();
 	
 	public InventoryListener() {
-		addCallBack(UncreativeItems.instance.extraItems, (whoClicked, inventory, slot) -> {
+		addCallback(UncreativeItems.instance.extraItems, (whoClicked, inventory, slot) -> {
 			ItemStack is = inventory.getItem(slot);
 			if (is != null) {
 				if (is.equals(UncreativeItems.instance.spawnerFactory)) whoClicked.openInventory(Utils.customSpawner());
@@ -29,7 +29,7 @@ public class InventoryListener implements Listener {
 		});
 	}
 	
-	public static void addCallBack(Inventory inventory, InventoryCallbackFunction function) {
+	public static void addCallback(Inventory inventory, InventoryCallbackFunction function) {
 		FUNCTIONS.put(inventory, function);
 	}
 	
@@ -38,10 +38,10 @@ public class InventoryListener implements Listener {
 		Inventory i = event.getClickedInventory();
 		if (i == null) return;
 		if (FUNCTIONS.containsKey(i)) {
-			SimplePair<Event.Result, Boolean> simplePair = FUNCTIONS.get(i).callback(event.getWhoClicked(), i,
+			SimplePair<Event.Result, Boolean> result = FUNCTIONS.get(i).callback(event.getWhoClicked(), i,
 					event.getSlot());
-			event.setResult(simplePair.getP1());
-			event.setCancelled(!simplePair.getP2());
+			event.setResult(result.getP1());
+			event.setCancelled(!result.getP2());
 		}
 		if (event.getWhoClicked().getOpenInventory().getTopInventory().equals(UncreativeItems.instance.extraItems)
 				&& event.getClick().isShiftClick()) {

@@ -7,7 +7,7 @@ import org.bukkit.inventory.Inventory;
 /**
  * Defines a callback function executed whenever the Inventory changes.
  * 
- * @see InventoryListener#addCallBack(Inventory, InventoryCallbackFunction)
+ * @see InventoryListener#addCallback(Inventory, InventoryCallbackFunction)
  */
 @FunctionalInterface
 public interface InventoryCallbackFunction {
