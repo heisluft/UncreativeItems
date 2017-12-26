@@ -1,9 +1,13 @@
 package de.heisluft.ui.cmd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import de.heisluft.ui.util.OBCNMSUtils;
@@ -11,7 +15,7 @@ import de.heisluft.ui.util.OBCNMSUtils;
 /**
  * Deals with the /giveurlskull command
  */
-public class CmdGiveURLSkull implements CommandExecutor {
+public class CmdGiveURLSkull implements CommandExecutor, TabCompleter {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -36,4 +40,19 @@ public class CmdGiveURLSkull implements CommandExecutor {
 				return true;
 		}
 	}
+	
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+		List<String> result = new ArrayList<>();
+		if (args.length == 1) if (sender instanceof Player) {
+			result.add("http://");
+			result.add("https://");
+		} else return null;
+		if (args.length == 2 && !(sender instanceof Player)) {
+			result.add("http://");
+			result.add("https://");
+		}
+		return result;
+	}
+	
 }

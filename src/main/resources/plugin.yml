@@ -5,10 +5,10 @@ main: ${main}
 commands:
   items:
     description: open the items gui
-    usage: /extraitems
+    usage: /items [player]
   seturlskull:
     description: sets an url skull
     usage: /seturlskull <x> <y> <z> <url> [world]
   giveurlskull:
     description: gives an url skull
-    usage: /seturlskull <url> [amount]
+    usage: /giveurlskull [player] <url> [amount]

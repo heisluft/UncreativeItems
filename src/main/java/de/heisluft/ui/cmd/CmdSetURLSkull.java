@@ -1,5 +1,7 @@
 package de.heisluft.ui.cmd;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -9,6 +11,7 @@ import org.bukkit.block.Skull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import de.heisluft.ui.util.OBCNMSUtils;
@@ -17,10 +20,15 @@ import de.heisluft.ui.util.Utils;
 /**
  * Deals with the /seturlskull command
  */
-public class CmdSetURLSkull implements CommandExecutor {
+public class CmdSetURLSkull implements CommandExecutor, TabCompleter {
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String var3, String[] args) {
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+		return null;
+	}
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length >= 4) {
 			String url = args[3];
 			World world = sender instanceof Player ? ((Player) sender).getWorld() : Bukkit.getWorld(args[4]);

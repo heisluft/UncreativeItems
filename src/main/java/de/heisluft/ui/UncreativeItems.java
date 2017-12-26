@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -32,6 +33,18 @@ public class UncreativeItems extends JavaPlugin {
 		instance = this;
 	}
 	
+	private void initCmds() {
+		Bukkit.getPluginCommand("items").setExecutor(new CmdItems());
+		CmdSetURLSkull s = new CmdSetURLSkull();
+		CmdGiveURLSkull g = new CmdGiveURLSkull();
+		PluginCommand sc = Bukkit.getPluginCommand("seturlskull");
+		PluginCommand gc = Bukkit.getPluginCommand("giveurlskull");
+		sc.setExecutor(s);
+		sc.setTabCompleter(s);
+		gc.setExecutor(g);
+		gc.setTabCompleter(g);
+	}
+	
 	@Override
 	public void onEnable() {
 		extraItems.setItem(3, new ItemStack(Material.COMMAND));
@@ -49,9 +62,7 @@ public class UncreativeItems extends JavaPlugin {
 		extraItems.setItem(15, new ItemStack(Material.BARRIER));
 		extraItems.setItem(22, new ItemStack(Material.DRAGON_EGG));
 		Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
-		Bukkit.getPluginCommand("seturlskull").setExecutor(new CmdSetURLSkull());
-		Bukkit.getPluginCommand("giveurlskull").setExecutor(new CmdGiveURLSkull());
-		Bukkit.getPluginCommand("items").setExecutor(new CmdItems());
+		initCmds();
 		PluginDescriptionFile d = getDescription();
 		getLogger().info("Enabled " + d.getName() + " v" + d.getVersion() + " by " + Utils.fromList(d.getAuthors())
 				+ " successfully");
