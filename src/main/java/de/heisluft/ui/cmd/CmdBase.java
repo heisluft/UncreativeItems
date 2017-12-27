@@ -33,7 +33,7 @@ public abstract class CmdBase implements CommandExecutor, TabCompleter {
 	}
 	
 	@Override
-	public List<String> onTabComplete(CommandSender var1, Command var2, String var3, String[] var4) {
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 		return new ArrayList<>();
 	}
 }

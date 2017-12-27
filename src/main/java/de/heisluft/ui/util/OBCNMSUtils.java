@@ -24,7 +24,7 @@ import com.mojang.authlib.properties.Property;
 public final class OBCNMSUtils {
 	
 	private static final Random RANDOM = new Random();
-	private static final String CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private static final String CHARS = "0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
 	private static Method getWorldHandle;
 	private static Method getWorldTileEntity;
 	private static Method setGameProfile;

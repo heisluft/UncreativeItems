@@ -21,11 +21,19 @@ import de.heisluft.ui.cmd.CmdSetURLSkull;
 import de.heisluft.ui.event.InventoryListener;
 import de.heisluft.ui.util.Utils;
 
+/**
+ * The main class for the UncreativeItems plugin
+ */
 @SuppressWarnings("unused")
 public class UncreativeItems extends JavaPlugin {
-	
+	/**
+	 * The singleton plugin instance
+	 */
 	public static UncreativeItems instance;
-	public final Inventory extraItems = Bukkit.getServer().createInventory(null, 27, "\u00a71UncreativeItems\u00a7r");
+	/**
+	 * The Inventory it's all about
+	 */
+	public static final Inventory EXTRA_ITEMS = Bukkit.getServer().createInventory(null, 27, "\u00a71UncreativeItems\u00a7r");
 	public final ItemStack spawnerFactory = new ItemStack(Material.MOB_SPAWNER);
 	
 	@Override
@@ -47,9 +55,9 @@ public class UncreativeItems extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		extraItems.setItem(3, new ItemStack(Material.COMMAND));
-		extraItems.setItem(4, new ItemStack(Material.COMMAND_CHAIN));
-		extraItems.setItem(5, new ItemStack(Material.COMMAND_REPEATING));
+		EXTRA_ITEMS.setItem(3, new ItemStack(Material.COMMAND));
+		EXTRA_ITEMS.setItem(4, new ItemStack(Material.COMMAND_CHAIN));
+		EXTRA_ITEMS.setItem(5, new ItemStack(Material.COMMAND_REPEATING));
 		ItemMeta im = spawnerFactory.getItemMeta();
 		im.setDisplayName("\u00A7cSpawner Config\u00A7r");
 		List<String> lore = new ArrayList<>();
@@ -57,10 +65,10 @@ public class UncreativeItems extends JavaPlugin {
 		im.setLore(lore);
 		im.addItemFlags(ItemFlag.HIDE_DESTROYS);
 		spawnerFactory.setItemMeta(im);
-		extraItems.setItem(11, spawnerFactory);
-		extraItems.setItem(13, new ItemStack(Material.COMMAND_MINECART));
-		extraItems.setItem(15, new ItemStack(Material.BARRIER));
-		extraItems.setItem(22, new ItemStack(Material.DRAGON_EGG));
+		EXTRA_ITEMS.setItem(11, spawnerFactory);
+		EXTRA_ITEMS.setItem(13, new ItemStack(Material.COMMAND_MINECART));
+		EXTRA_ITEMS.setItem(15, new ItemStack(Material.BARRIER));
+		EXTRA_ITEMS.setItem(22, new ItemStack(Material.DRAGON_EGG));
 		Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
 		initCmds();
 		PluginDescriptionFile d = getDescription();
@@ -71,7 +79,7 @@ public class UncreativeItems extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		try {
-			for (HumanEntity p : extraItems.getViewers())
+			for (HumanEntity p : EXTRA_ITEMS.getViewers())
 				p.closeInventory();
 		} catch (ConcurrentModificationException e) {
 			// ignore

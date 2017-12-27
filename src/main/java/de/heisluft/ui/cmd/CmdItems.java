@@ -16,11 +16,11 @@ public class CmdItems extends CmdBase {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
 			if (sender instanceof Player) if (((Player) sender).getGameMode().equals(GameMode.CREATIVE))
-				((Player) sender).openInventory(UncreativeItems.instance.extraItems);
+				((Player) sender).openInventory(UncreativeItems.EXTRA_ITEMS);
 			else System.out.println("Usage: /items <player>");
 		} else if (args.length == 1) {
 			Player player = Bukkit.getPlayer(args[0]);
-			if (player != null) player.openInventory(UncreativeItems.instance.extraItems);
+			if (player != null) player.openInventory(UncreativeItems.EXTRA_ITEMS);
 			else sendPlayerNotFoundMessage(sender, args[0]);
 		} else if (sender instanceof Player) sender.sendMessage("\u00A7cUsage: " + cmd.getUsage() + "\u00A7r");
 		else System.out.println("Usage: /items <player>");

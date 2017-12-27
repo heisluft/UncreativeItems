@@ -14,12 +14,18 @@ import org.bukkit.inventory.ItemStack;
 import de.heisluft.ui.UncreativeItems;
 import de.heisluft.ui.util.Utils;
 
+/**
+ * The Listener listening on changes to {@link UncreativeItems#EXTRA_ITEMS EXTRA_ITEMS} inventory
+ */
 public class InventoryListener implements Listener {
 	
 	private static final Map<Inventory, InventoryCallbackFunction> FUNCTIONS = new HashMap<>();
 	
+	/**
+	 * creates the InventoryListener
+	 */
 	public InventoryListener() {
-		addCallback(UncreativeItems.instance.extraItems, (whoClicked, inventory, slot) -> {
+		addCallback(UncreativeItems.EXTRA_ITEMS, (whoClicked, inventory, slot) -> {
 			ItemStack is = inventory.getItem(slot);
 			if (is != null) {
 				if (is.equals(UncreativeItems.instance.spawnerFactory)) whoClicked.openInventory(Utils.customSpawner());
@@ -29,6 +35,11 @@ public class InventoryListener implements Listener {
 		});
 	}
 	
+	/**
+	 * Assigns a callback to the specified Inventory
+	 * @param inventory the inventory to assign to
+	 * @param function the function to assign
+	 */
 	public static void addCallback(Inventory inventory, InventoryCallbackFunction function) {
 		FUNCTIONS.put(inventory, function);
 	}
@@ -43,7 +54,7 @@ public class InventoryListener implements Listener {
 			event.setResult(result.getP1());
 			event.setCancelled(!result.getP2());
 		}
-		if (event.getWhoClicked().getOpenInventory().getTopInventory().equals(UncreativeItems.instance.extraItems)
+		if (event.getWhoClicked().getOpenInventory().getTopInventory().equals(UncreativeItems.EXTRA_ITEMS)
 				&& event.getClick().isShiftClick()) {
 			event.setResult(Event.Result.DENY);
 			event.setCancelled(true);
@@ -53,6 +64,6 @@ public class InventoryListener implements Listener {
 	@EventHandler
 	public void onInv2(InventoryDragEvent event) {
 		Inventory i = event.getInventory();
-		if (i != null && i.equals(UncreativeItems.instance.extraItems)) event.setCancelled(true);
+		if (i != null && i.equals(UncreativeItems.EXTRA_ITEMS)) event.setCancelled(true);
 	}
 }
