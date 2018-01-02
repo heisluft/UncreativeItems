@@ -6,12 +6,13 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 
 String authors = '[heisluft]'
-String main = 'de.heisluft.ui.UncreativeItems'
+String main = 'ui.UncreativeItems'
 
 repositories {
     mavenCentral()
     mavenLocal()
 }
+
 dependencies {
     compile 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
     testCompile 'junit:junit:4.12'
@@ -28,8 +29,12 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 task copyToTestServer(type: Copy, dependsOn: jar) {
+    def tsp = System.getProperty("testserver")
+    if(tsp != null) {
+        tsp=tsp.replace('\\', '/')
     from jar
-    into 'C:/Users/Heisluft/Desktop/MC/plugin/testserver/plugins'
+    into tsp + (tsp.endsWith("/") ? "" : "/") + "plugins"
+    }
 }
 
 processResources {
@@ -38,7 +43,7 @@ processResources {
     }
     from(sourceSets.main.resources.srcDirs) {
         include 'plugin.yml'
-        expand('version': version, 'authors': authors, 'name': project.name, 'main': main)
+        expand('version': version, 'authors': authors, 'name': project.name, 'main': group + '.' + main)
     }
 }
 
@@ -46,4 +51,3 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
-
