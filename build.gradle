@@ -1,13 +1,11 @@
 group 'de.heisluft'
 version '0.0.1'
 
-apply plugin: 'groovy'
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
 String authors = '[heisluft]'
-String pluginName = 'UncreativeItems'
 String main = 'de.heisluft.ui.UncreativeItems'
 
 repositories {
@@ -15,9 +13,8 @@ repositories {
     mavenLocal()
 }
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.11'
     compile 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'junit:junit:4.12'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -31,7 +28,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 task copyToTestServer(type: Copy, dependsOn: jar) {
-    from "build/libs/extraitems-" + version + ".jar"
+    from jar
     into 'C:/Users/Heisluft/Desktop/MC/plugin/testserver/plugins'
 }
 
@@ -41,12 +38,11 @@ processResources {
     }
     from(sourceSets.main.resources.srcDirs) {
         include 'plugin.yml'
-        expand('version': version, 'authors': authors, 'name': pluginName, 'main': main)
+        expand('version': version, 'authors': authors, 'name': project.name, 'main': main)
     }
 }
 
 artifacts {
-    archives jar
     archives sourcesJar
     archives javadocJar
 }
