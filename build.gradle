@@ -14,9 +14,7 @@ repositories {
 }
 
 dependencies {
-    compile('de.heisluft:HeisluftsLanguageSystem:0.0.1') {
-        transitive=false
-    }
+    compile'de.heisluft:HeisluftsLanguageSystem:0.0.1'
     compile 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
     testCompile 'junit:junit:4.12'
 }
