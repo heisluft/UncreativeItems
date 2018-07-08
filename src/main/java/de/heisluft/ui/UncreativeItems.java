@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
+import de.heisluft.lang.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.PluginCommand;
@@ -33,7 +34,7 @@ public class UncreativeItems extends JavaPlugin {
 	/**
 	 * The Inventory it's all about
 	 */
-	public static final Inventory EXTRA_ITEMS = Bukkit.getServer().createInventory(null, 27, "\u00a71UncreativeItems\u00a7r");
+	public static Inventory EXTRA_ITEMS;
 	public final ItemStack spawnerFactory = new ItemStack(Material.MOB_SPAWNER);
 	
 	@Override
@@ -55,6 +56,8 @@ public class UncreativeItems extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		LanguageManager.INSTANCE.registerPlugin(this);
+		EXTRA_ITEMS = Bukkit.getServer().createInventory(null, 27, "\u00a71UncreativeItems\u00a7r");
 		EXTRA_ITEMS.setItem(3, new ItemStack(Material.COMMAND));
 		EXTRA_ITEMS.setItem(4, new ItemStack(Material.COMMAND_CHAIN));
 		EXTRA_ITEMS.setItem(5, new ItemStack(Material.COMMAND_REPEATING));

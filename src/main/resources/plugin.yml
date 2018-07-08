@@ -1,7 +1,7 @@
 name: ${name}
-authors: ${author}
+author: ${author}
 version: ${version}
-main: ${main}
+main: de.heisluft.ui.UncreativeItems
 commands:
   items:
     description: open the items gui
