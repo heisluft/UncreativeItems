@@ -3,6 +3,8 @@ package de.heisluft.ui.cmd;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.heisluft.ui.UncreativeItems;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +15,12 @@ import org.bukkit.entity.Player;
  * A CommandExecutor implementing class containing some commonly used methods
  */
 public abstract class CmdBase implements CommandExecutor, TabCompleter {
-	
+
+	public CmdBase(String cmdName) {
+		Bukkit.getPluginCommand(cmdName).setTabCompleter(this);
+		Bukkit.getPluginCommand(cmdName).setExecutor(this);
+	}
+
 	/**
 	 * Sends the minecraft-style player not found message <br>
 	 * Example:<br>

@@ -12,7 +12,11 @@ import de.heisluft.ui.UncreativeItems;
  * Deals with the /items command
  */
 public class CmdItems extends CmdBase {
-	
+
+	public CmdItems() {
+		super("items");
+	}
+
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
 			if (sender instanceof Player) if (((Player) sender).getGameMode().equals(GameMode.CREATIVE))

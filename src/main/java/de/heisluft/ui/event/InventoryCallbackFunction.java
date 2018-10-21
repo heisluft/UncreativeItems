@@ -21,7 +21,7 @@ public interface InventoryCallbackFunction {
 	 *            the Inventory
 	 * @param slot
 	 *            the clicked slot
-	 * @return the event result and whether the event should continue
+	 * @return the event result
 	 */
-	SimplePair<Event.Result, Boolean> callback(HumanEntity whoClicked, Inventory inventory, int slot);
+	Event.Result callback(HumanEntity whoClicked, Inventory inventory, int slot);
 }
