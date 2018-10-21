@@ -7,7 +7,6 @@ import java.util.List;
 import de.heisluft.lang.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -16,9 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.heisluft.ui.cmd.CmdGiveURLSkull;
 import de.heisluft.ui.cmd.CmdItems;
-import de.heisluft.ui.cmd.CmdSetURLSkull;
 import de.heisluft.ui.event.InventoryListener;
 import de.heisluft.ui.util.Utils;
 
@@ -44,14 +41,6 @@ public class UncreativeItems extends JavaPlugin {
 	
 	private void initCmds() {
 		Bukkit.getPluginCommand("items").setExecutor(new CmdItems());
-		CmdSetURLSkull s = new CmdSetURLSkull();
-		CmdGiveURLSkull g = new CmdGiveURLSkull();
-		PluginCommand sc = Bukkit.getPluginCommand("seturlskull");
-		PluginCommand gc = Bukkit.getPluginCommand("giveurlskull");
-		sc.setExecutor(s);
-		sc.setTabCompleter(s);
-		gc.setExecutor(g);
-		gc.setTabCompleter(g);
 	}
 	
 	@Override

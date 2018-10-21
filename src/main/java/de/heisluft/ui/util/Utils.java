@@ -66,13 +66,6 @@ public final class Utils {
 	 */
 	public static Inventory customSpawner() {
 		Inventory result = Bukkit.createInventory(null, 27, "\u00A7cThe Spawner Factory\u00A7r");
-		ItemStack skullBack = OBCNMSUtils.getSkull(
-				"http://textures.minecraft.net/texture/86fd37aaf22730e0dcae98dfca8b8e77771c6a18bb9efbf73387e4e2f1bdc",
-				1);
-		ItemMeta m = skullBack.getItemMeta();
-		m.setDisplayName("Back");
-		skullBack.setItemMeta(m);
-		result.setItem(18, skullBack);
 		InventoryListener.addCallback(result,
 				(whoClicked, inventory, slot) -> new SimplePair<>(Event.Result.DEFAULT, true));
 		return result;
